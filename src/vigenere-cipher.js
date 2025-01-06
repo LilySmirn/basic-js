@@ -21,29 +21,29 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 class VigenereCipheringMachine {
   constructor(direct = true) {
-    this.direct = direct; // true - прямой, false - обратный
+    this.direct = direct;
   }
 
   encrypt(message, key) {
     if (!message || !key) throw new Error('Incorrect arguments!');
 
-    message = message.toUpperCase(); // Преобразуем сообщение в верхний регистр
-    key = key.toUpperCase(); // Преобразуем ключ в верхний регистр
+    message = message.toUpperCase();0
+    key = key.toUpperCase();
 
     let result = '';
-    let j = 0; // Индекс для ключа
+    let j = 0;
     for (let i = 0; i < message.length; i++) {
       const char = message[i];
 
-      if (/[A-Z]/.test(char)) { // Если символ является буквой
-        const m = char.charCodeAt(0) - 'A'.charCodeAt(0); // Индекс символа в алфавите
-        const k = key[j % key.length].charCodeAt(0) - 'A'.charCodeAt(0); // Индекс символа из ключа
-        const encryptedChar = String.fromCharCode(((m + k) % 26) + 'A'.charCodeAt(0)); // Шифруем символ
+      if (/[A-Z]/.test(char)) {
+        const m = char.charCodeAt(0) - 'A'.charCodeAt(0);
+        const k = key[j % key.length].charCodeAt(0) - 'A'.charCodeAt(0);
+        const encryptedChar = String.fromCharCode(((m + k) % 26) + 'A'.charCodeAt(0));
         result += encryptedChar;
 
-        j++; // Увеличиваем индекс для ключа
+        j++;
       } else {
-        result += char; // Если не буква, добавляем символ как есть
+        result += char;
       }
     }
 
@@ -53,23 +53,23 @@ class VigenereCipheringMachine {
   decrypt(message, key) {
     if (!message || !key) throw new Error('Incorrect arguments!');
 
-    message = message.toUpperCase(); // Преобразуем сообщение в верхний регистр
-    key = key.toUpperCase(); // Преобразуем ключ в верхний регистр
+    message = message.toUpperCase();
+    key = key.toUpperCase();
 
     let result = '';
-    let j = 0; // Индекс для ключа
+    let j = 0;
     for (let i = 0; i < message.length; i++) {
       const char = message[i];
 
-      if (/[A-Z]/.test(char)) { // Если символ является буквой
-        const m = char.charCodeAt(0) - 'A'.charCodeAt(0); // Индекс символа в алфавите
-        const k = key[j % key.length].charCodeAt(0) - 'A'.charCodeAt(0); // Индекс символа из ключа
-        const decryptedChar = String.fromCharCode(((m - k + 26) % 26) + 'A'.charCodeAt(0)); // Расшифровываем символ
+      if (/[A-Z]/.test(char)) {
+        const m = char.charCodeAt(0) - 'A'.charCodeAt(0);
+        const k = key[j % key.length].charCodeAt(0) - 'A'.charCodeAt(0);
+        const decryptedChar = String.fromCharCode(((m - k + 26) % 26) + 'A'.charCodeAt(0));
         result += decryptedChar;
 
-        j++; // Увеличиваем индекс для ключа
+        j++;
       } else {
-        result += char; // Если не буква, добавляем символ как есть
+        result += char;
       }
     }
 
